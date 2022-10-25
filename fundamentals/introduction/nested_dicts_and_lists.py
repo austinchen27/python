@@ -34,6 +34,7 @@ students = [
      {'first_name' : 'John', 'last_name' : 'Rosales'}
 ]
 
+# method #1
 def iterateDictionary2(first_name,students):
   for i in range(len(students)):
     print(students[i][first_name])
@@ -44,6 +45,18 @@ def iterateDictionary3(last_name,students):
     print(students[i][last_name])
 iterateDictionary2('last_name',students)
 
+# method #2
+def iterateDictionary(some_list):
+  for i in (students):
+    print(f"first_name - {i['first_name']}, last_name - {i['last_name']}")
+iterateDictionary(students)
+
+def iterateDictionary2(some_list):
+  for i in (some_list):
+    print(f"{i['first_name']}")
+  for i in (some_list):
+    print(f"{i['last_name']}")
+iterateDictionary2(students)
 
 # 4. Iterate Through a Dictionary with List Values
 dojo = {
@@ -53,8 +66,8 @@ dojo = {
 def printInfo(dict):
   for key in dict.keys():
     print(len(dict[key]), key)
-    for location in dict[key]:
-      print(location)
+    for locations in dict[key]:
+      print(locations)
 printInfo(dojo)
 
 

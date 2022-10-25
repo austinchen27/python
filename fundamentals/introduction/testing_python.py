@@ -1,5 +1,6 @@
 from multiprocessing.spawn import old_main_modules
 import random
+from smtpd import DebuggingServer
 from tkinter.messagebox import askquestion
 
 print('Welcome to Python!')
@@ -55,3 +56,15 @@ print("I work as a", profession)
 def full_name():
 name1 = full_name("Austin_Chen")
 print(name1)
+
+
+def be_cheerful(name='', repeat=2):
+    print(f"good morning {name}\n" * repeat)
+
+be_cheerful()
+be_cheerful("austin")
+be_cheerful(name="evan")
+be_cheerful(repeat=6)
+be_cheerful(name="logan", repeat=5)
+be_cheerful(repeat=3, name="howlett")
+

@@ -4,3 +4,9 @@
       "editorWhitespace.foreground": "#E0E0E0"
     }
   }
+
+  "vscode_custom_css.imports": [
+    ""
+  ]
+
+}

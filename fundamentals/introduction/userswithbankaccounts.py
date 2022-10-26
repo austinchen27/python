@@ -43,12 +43,12 @@ class User:
 
   def make_deposit(self, amount):
     self.account.deposit(amount)
-    print(f"{self.name}Deposited: ${amount}")
+    print(f"{self.name} Deposited: ${amount}")
     return self
 
   def make_withdrawal(self, amount):
     self.account.withdrawal(amount)
-    print(f"{self.name}Withdrawn: ${amount}")
+    print(f"{self.name} Withdrawn: ${amount}")
     return self
 
   def display_user_balance(self):

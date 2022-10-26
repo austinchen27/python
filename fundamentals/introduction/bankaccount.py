@@ -21,10 +21,12 @@ class BankAccount:
     return self
 
   def display_account_info(self):
-    print("Your balance is $",self.balance,"and your interest rate is",self.int_rate)
+    print(f"Your balance is ${self.balance}")
 
   def yield_interest(self):
-    self.balance = self.balance*(1+self.int_rate)
+    if self.balance > 0:
+      self.balance = self.balance*(1+self.int_rate)
+      return self
     return self
 
   @classmethod

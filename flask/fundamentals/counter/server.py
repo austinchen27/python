@@ -21,7 +21,19 @@ def reset_count():
   session["num"] = 0
   return redirect('/')
 
+@app.route('/increment', methods=["POST"])
+def form_count():
+  session["num"] += int(request.form["increment"])
+  return redirect('/')
 
+@app.route('/<int:num>')
+def from_count(num):
+  if "num" in session:
+    session["num"] += num
+  else:
+    session["num"] = 1
+  return render_template("index.html", num=session["num"])
 
 if __name__=="__main__":
   app.run(debug=True,port=5005)
+

@@ -87,7 +87,7 @@ foobar()
 print(b)
 #output: 500, 500, 300, 500
 
-# #12 *ASK*
+# #12
 b = 500
 print(b)
 def foobar():

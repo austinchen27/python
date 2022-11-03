@@ -1,70 +1,7 @@
-from flask import Flask, render_template, request, redirect
-from models.users import User
-app = Flask(__name__)
-
-@app.route("/")
-def index():
-  users = User.get_all()
-  print(users)
-  return render_template("readall.html", users = users)
-
-
-@app.route("/dashboard")
-def dashboard():
-  return render_template("create_user.html")
-
-
-@app.route("/create_user", methods=["POST"])
-def create_user():
-  data = {
-    "first_name": request.form["first_name"],
-    "last_name": request.form["last_name"],
-    "email": request.form["email"]
-  }
-
-  User.save(data)
-  return redirect("/")
-
-
-@app.route("/show/<int:id>")
-def show(id):
-  data = {
-    "id":id
-  }
-  return render_template("readone.html", one_user = User.get_one(data))
-
-
-@app.route("/edit/<int:id>")
-def edit(id):
-  data = {
-    "id":id
-  }
-  return render_template("readedit.html", users = User.get_one(data))
-
-
-@app.route("/update/<int:id>", methods=["POST"])
-def update(id):
-  data = {
-    **request.form, "id":id
-  }
-  User.update(data)
-  return redirect("/")
-
-@app.route("/delete/<int:id>")
-def delete(id):
-  data = {
-    "id":id
-  }
-  User.delete(data)
-  return redirect("/")
+from flask_app.controllers import users
+from flask_app import app
 
 
 if __name__ == "__main__":
   app.run(debug=True, port=5005)
 
-
-# method=POST
-# 1. always have to redirect
-# 2. always be in a form
-# 3. methods in the server.py
-# 4. method in html

@@ -6,26 +6,65 @@ app = Flask(__name__)
 def index():
   users = User.get_all()
   print(users)
-  return render_template("readall.html", users=users)
+  return render_template("readall.html", users = users)
+
 
 @app.route("/dashboard")
 def dashboard():
   return render_template("create_user.html")
 
+
 @app.route("/create_user", methods=["POST"])
 def create_user():
   data = {
-    "fname": request.form["fname"],
-    "lname": request.form["lname"],
+    "first_name": request.form["first_name"],
+    "last_name": request.form["last_name"],
     "email": request.form["email"]
   }
 
   User.save(data)
-  return redirect('/')
+  return redirect("/")
+
+
+@app.route("/show/<int:id>")
+def show(id):
+  data = {
+    "id":id
+  }
+  return render_template("readone.html", one_user = User.get_one(data))
+
+
+@app.route("/edit/<int:id>")
+def edit(id):
+  data = {
+    "id":id
+  }
+  return render_template("readedit.html", users = User.get_one(data))
+
+
+@app.route("/update/<int:id>", methods=["POST"])
+def update(id):
+  data = {
+    **request.form, "id":id
+  }
+  User.update(data)
+  return redirect("/")
+
+@app.route("/delete/<int:id>")
+def delete(id):
+  data = {
+    "id":id
+  }
+  User.delete(data)
+  return redirect("/")
+
 
 if __name__ == "__main__":
   app.run(debug=True, port=5005)
 
 
-
-#dont put .html in url, only in render_template
+# method=POST
+# 1. always have to redirect
+# 2. always be in a form
+# 3. methods in the server.py
+# 4. method in html

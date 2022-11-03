@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Users CRUD ReadAll</title>
+  <title>Read All</title>
 </head>
+
 <body>
-  
-  <h1>All Users</h1>
+  <div>
+    <h1>All Users</h1>
+
+  </div>
   <table>
     <th>
       <tr>
@@ -16,6 +20,7 @@
         <th>Full Name</th>
         <th>Email</th>
         <th>Created At</th>
+        <th>Actions</th>
       </tr>
     </th>
     <tbody>
@@ -27,12 +32,14 @@
         </td>
         <td>{{ one_user.email }}</td>
         <td>{{ one_user.created_at }}</td>
-      </tr>
-      {% endfor %}
+        <td><a href="/show/{{one_user.id}}">Show</a> | <a href="/edit/{{one_user.id}}">Edit</a> | <a href="/delete/{{one_user.id}}">Delete</a>
+        </td>
+        {% endfor %}
     </tbody>
   </table>
 
   <a href="/dashboard">Add a New User</a>
 
 </body>
-</html> 
+
+</html>

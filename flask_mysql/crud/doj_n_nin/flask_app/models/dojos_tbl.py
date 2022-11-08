@@ -41,17 +41,17 @@ class Dojo:
         if results:
             this_dojo = cls(results[0])
             for row in results:
-              print(row['age'])
-              data = {
-                  "id": row['ninjas.id'],
-                  "first_name": row['first_name'],
-                  "last_name": row['last_name'],
-                  "age": row['age'],
-                  "created_at": row['ninjas.created_at'],
-                  "updated_at": row['ninjas.updated_at'],
-              }
-              this_ninja = ninjas_tbl.Ninja(data)
-              this_dojo.ninjas.append(this_ninja)
+                print(row['age'])
+            data = {
+                "id": row['ninjas.id'],
+                "first_name": row['first_name'],
+                "last_name": row['last_name'],
+                "age": row['age'],
+                "created_at": row['ninjas.created_at'],
+                "updated_at": row['ninjas.updated_at'],
+            }
+            this_ninja = ninjas_tbl.Ninja(data)
+            this_dojo.ninjas.append(this_ninja)
             return this_dojo
 
         return False

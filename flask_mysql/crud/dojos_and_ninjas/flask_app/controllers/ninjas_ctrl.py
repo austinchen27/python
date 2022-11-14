@@ -3,16 +3,12 @@ from flask_app.models.dojos_tbl import Dojo
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
 
-# goes to add ninja page
 @app.route("/add_ninja")
 def add_ninja():
   all_dojos = Dojo.get_all()
   print(all_dojos)
   return render_template("ninjas.html", dojos = all_dojos)
 
-
-#input data into ninja field, then redirects it to
-# all dojos box 
 @app.route("/create_ninja", methods=["POST"])
 def create_ninja():
   data = {
@@ -21,29 +17,27 @@ def create_ninja():
     "last_name": request.form["last_name"],
     "age": request.form["age"]
   }
+  ninja_id = (data["dojo_id"])
   Ninja.new_ninja(data)
-  return redirect("/dojos_box")
+  return redirect(f"/dojos/{ninja_id}")
 
-@app.route("/dojos_box")
-def dojo_box():
-  all_dojos = Dojo.get_all()
-  # print(all_dojos[0].name)
-  return render_template("dojos_show.html", dojo = all_dojos)
 
-#dojo = all_dojos
-#left side = jinja html
-#right side = information
-
-# for x in range([50,50,50]);
-# print([0])
-
-#this route will take you to the page that shows
-#each ninjas in the dojo
-@app.route("/ninjas/<int:id>")
-def ninjas_in_dojo():
+@app.route("/dojos/<int:id>")
+def all_ninjas_in_dojos(id):
   data = {
     "id":id
   }
   ninjas = Ninja.all_ninjas(data)
-  return render_template("/dojos_show.html", )
+  return render_template("dojoshow.html", ninjas = ninjas)
 
+
+@app.route("/home")
+def home():
+  return redirect("/dojos")
+
+@app.route("/dojos")
+def dashboard():
+  dojos = Dojo.get_all()
+  return render_template("dojos.html", dojos = dojos)
+
+  #f strings only in redirect, not in route

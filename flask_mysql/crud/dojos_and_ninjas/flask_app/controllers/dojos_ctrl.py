@@ -15,17 +15,20 @@ def add_dojo():
   Dojo.save(data)
   return redirect("/")
 
-
 @app.route("/dojos/<int:id>")
-def dojo_show():
+def dojo_show(id):
   data = {
     "id":id
   }
   dojoName = Dojo.get_one(data)
-  return render_template("dojos_show.html", dojoName = dojoName)
+  return render_template("dojoshow.html", dojoName = dojoName)
 
 
-# @app.route("/dojos")
-# def home():
-#   return redirect("/")
 
+
+#.without() Attribute
+#.() class method
+
+
+#sendingback 1 dog with all award
+#1 dojo w all ninjas stored into an attribute of that dojo instance

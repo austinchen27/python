@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Author's Favorites</title>
+</head>
+
+<body>
+
+  <div class="container d-flex">
+
+    <div>
+      <h2>jinja 's favorites</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th># of pages</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>jinja forloop</td>
+
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div>
+      <h2>Add Author's Favorites</h2>
+
+      <div>
+        <label for="books">Book:</label>
+        <select style="width: 300px" id="books" name="books">
+          <option>jinjabookname</option>
+          <!-- {% for one_dojo in dojos %} -->
+          <option value="booksidjinja">booksnamejinja</option>
+          <!-- {% endfor %} -->
+        </select>
+
+        <input type="submit" value="Add">
+      </div>
+
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>

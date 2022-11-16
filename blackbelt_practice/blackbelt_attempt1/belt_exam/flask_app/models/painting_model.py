@@ -81,6 +81,15 @@ class Painting:
     """
     return connectToMySQL(DATABASE).query_db(query,data)
 
+  @classmethod
+  def join_three(cls,data):
+    query = """
+    SELECT *, users2.first_name as user2_first_name, users2.last_name as user2_last_name FROM paintings
+    JOIN purchases ON paintings.id = purchases.painting_id
+    JOIN users as users2 ON users2.id = paintings.user_id
+    JOIN users ON users.id = purchases.user_id
+    """
+    return connectToMySQL(DATABASE).query_db(query,data)
 
   @staticmethod
   def validator(data):

@@ -24,5 +24,5 @@ def display_messages():
     "id": session["user_id"]
   }
   logged_user = User.get_by_id(data)
-  this_message = Message.get_by_id({"id":id})
+  this_message = Message.get_by_id({"id":session["user_id"]})
   return render_template("welcome.html", this_message=this_message, logged_user=logged_user)

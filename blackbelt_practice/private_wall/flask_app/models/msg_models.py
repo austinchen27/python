@@ -23,7 +23,7 @@ class Message:
   def get_by_id(cls,data):
     query = """
     SELECT * FROM messages JOIN users ON messages.user_id = users.id
-    WHERE messages.id = %(id)s;
+    WHERE messages.user_id = %(id)s;
     """
     results = connectToMySQL(DATABASE).query_db(query,data)
     if results:
@@ -33,7 +33,7 @@ class Message:
         **row,
         "id": row["users.id"],
         "created_at": row["users.created_at"],
-        "updated_at": row["users.udpated_at"]
+        "updated_at": row["users.updated_at"]
       }
       this_user = user_models.User(user_msg)
       this_message.sender = this_user

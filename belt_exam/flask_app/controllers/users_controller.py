@@ -56,7 +56,9 @@ def dash():
   }
   logged_user = User.get_by_id(data)
   all_paintings = Painting.get_all()
-  return render_template("welcome.html", logged_user=logged_user, all_paintings=all_paintings)
+  my_purchases = Painting.select_all(data)
+  return render_template("welcome.html", logged_user=logged_user, all_paintings=all_paintings, my_purchases=my_purchases)
+#ON dashboard page so function is here -> this is where you show your purchases jinja
 
 @app.route("/paintings/<int:id>/update", methods=["POST"])
 def update_painting(id):

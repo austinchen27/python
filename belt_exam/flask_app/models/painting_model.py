@@ -11,13 +11,15 @@ class Painting:
     self.price = data["price"]
     self.created_at = data["created_at"]
     self.updated_at = data["updated_at"]
+    self.purchased = data["purchased"]
+    self.quantity = data["quantity"]
     self.user_id = data["user_id"]
 
   @classmethod
   def create(cls, data):
     query = """
-    INSERT INTO paintings (title, description, price, user_id)
-    VALUES (%(title)s, %(description)s, %(price)s, %(user_id)s);
+    INSERT INTO paintings (title, description, price, quantity, user_id)
+    VALUES (%(title)s, %(description)s, %(price)s, %(quantity)s, %(user_id)s);
     """
     return connectToMySQL(DATABASE).query_db(query,data)
 
@@ -67,9 +69,9 @@ class Painting:
     return False
 
   @classmethod
-  def update(cls,data):
+  def update(cls,data): #added quantity for many to many
     query = """
-    UPDATE paintings SET title = %(title)s, description = %(description)s, price = %(price)s
+    UPDATE paintings SET title = %(title)s, description = %(description)s, quantity = %(quantity)s, price = %(price)s
     WHERE id = %(id)s;
     """
     return connectToMySQL(DATABASE).query_db(query,data)
@@ -81,6 +83,38 @@ class Painting:
     """
     return connectToMySQL(DATABASE).query_db(query,data)
 
+  @classmethod #this method is to buy a painting
+  def buy_painting(cls,data):
+    query = """
+    UPDATE paintings SET purchased = %(purchased)s
+    WHERE id = %(id)s;
+    """
+    return connectToMySQL(DATABASE).query_db(query,data)
+
+  @classmethod #this method to identify which purchase belongs to which
+  def purchased(cls,data):
+    query = """
+    INSERT INTO purchases (user_id, painting_id)
+    VALUES (%(user_id)s, %(painting_id)s)
+    """
+    return connectToMySQL(DATABASE).query_db(query,data)
+
+  @classmethod #many2many join. select each needed for div display
+  def select_all(cls,data): 
+    query = """
+    SELECT DISTINCT painting_id,title,first_name,last_name FROM purchases
+    JOIN paintings ON painting_id = paintings.id
+    JOIN users ON paintings.user_id = users.id
+    WHERE purchases.user_id = %(id)s;
+    """
+    return connectToMySQL(DATABASE).query_db(query,data)
+
+#    display:
+# 1)start with select all from purchases where id = person logged in
+# but also join paintings onto that query
+# will not have persons name to created
+# join users table onto foreign key of paintings table to access name of 
+# creator
 
   @staticmethod
   def validator(data):
@@ -95,4 +129,10 @@ class Painting:
       if int(data["price"]) <= 0:
         flash("You're worth more than that!")
         is_valid = False
+    if data["quantity"]:
+      if int(data["quantity"]) < 1:
+        flash("More")
+        is_valid = False
     return is_valid
+
+    # shows_ctrl line 54-55 20-21

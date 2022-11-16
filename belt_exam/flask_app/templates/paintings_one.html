@@ -21,10 +21,32 @@
 <p>{{this_painting.description}}</p>
 <p>Price:</p>
 <p>${{this_painting.price}}</p>
+<p>Quantity:</p>
+<p>{{this_painting.quantity}}</p>
+<p>Number Purchased:</p>
+<p>{% if this_painting.quantity > this_painting.purchased %} {{this_painting.purchased}} {%else%} Sold Out {%endif%}</p>
 </div>
 
+
+<!-- buying painting, have name to identify which painting and id of painting -->
+<form action="/buy_painting" method="post">
+<button class="btn btn-primary">Buy</button>
+<input type="hidden" name="purchased" value="{{this_painting.purchased}}">
+<input type="hidden" name="purchased_id" value="{{this_painting.id}}">
+</form>
 
 
   
 </body>
 </html>
+
+<!-- users join on purchases on users on painting -->
+<!-- users paintings onto the purchases table -->
+<!-- then join users table onto the paintings table (.id part) -->
+
+display:
+1)start with select all from purchases where id = person logged in
+but also join paintings onto that query
+will not have persons name to created
+join users table onto foreign key of paintings table to access name of 
+creator

@@ -60,6 +60,7 @@ def show_one_painting(id):
   this_painting = Painting.get_by_id({"id":id})
   return render_template("paintings_one.html", this_painting=this_painting, logged_user=logged_user)
 
+
 @app.route("/paintings/<int:id>/delete")
 def del_party(id):
   if "user_id" not in session:
@@ -73,3 +74,24 @@ def del_party(id):
     return redirect("/dashboard")
   Painting.delete({"id":id})
   return redirect("/dashboard")
+
+@app.route("/buy_painting", methods=["POST"]) #buy painting post method
+def buy():
+  newPurchase = int(request.form["purchased"]) + 1 #typecast string to int
+  data = {
+    "id": request.form["purchased_id"],
+    "purchased": newPurchase #create new variable to put the buys in
+  }
+  Painting.buy_painting(data)
+  purchaser = {
+    "painting_id": request.form["purchased_id"],
+    "user_id": session["user_id"]
+  }
+  Painting.purchased(purchaser)
+  return redirect(f"/paintings/{request.form['purchased_id']}")
+
+
+##if need to delete, create identical funciton with -1
+#request forms submit values to strings -> need to typecast string to int
+ #"purchased" relates to %(purchased)s on the models
+ #newPurchase is new variable with default 0 button

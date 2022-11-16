@@ -12,21 +12,36 @@
 
 <body>
 
+  <div class="container">
+    <div class="d-flex justify-content-between">
+      <h2>Welcome {{logged_user.first_name}}!</h2>
+      <a href="/paintings/new">Add Painting</a>
+      <a href="/users/logout">logout</a>
+    </div>
+    <div class="d-flex gap-5">
+      <div>
+        <h4>Paintings</h4>
+        {% for one_painting in all_paintings %}
+        <p><a href="/paintings/{{one_painting.id}}">{{one_painting.title}}</a> by {{one_painting.picasso.first_name}}
+          {% if one_painting.user_id == session["user_id"] %}
+          <a href="/paintings/{{one_painting.id}}/delete">Delete</a>
+          | <a href="/paintings/{{one_painting.id}}/edit">Edit</a>
+          {% endif %}
+        </p>
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Your Purchased Paintings</h4>
+        {% for one_purchase in my_purchases %}
+        <p>
+          <a href="/paintings/{{one_purchase.id}}">{{one_purchase.title}}</a> by {{one_purchase.first_name}}
+        </p>
+        {% endfor %}
+      </div>
 
-  <div class="d-flex justify-content-between">
-    <h2>Welcome {{logged_user.first_name}}!</h2>
-    <a href="/paintings/new">Add Painting</a>
-    <a href="/users/logout">logout</a>
+    </div>
+
   </div>
-  <h4>Paintings</h4>
-  {% for one_painting in all_paintings %}
-  <p><a href="/paintings/{{one_painting.id}}">{{one_painting.title}}</a> by {{one_painting.picasso.first_name}}
-    {% if one_painting.user_id == session["user_id"] %}
-    <a href="/paintings/{{one_painting.id}}/delete">Delete</a>
-    | <a href="/paintings/{{one_painting.id}}/edit">Edit</a>
-    {% endif %}
-  </p>
-  {% endfor %}
   </tbody>
 
 
